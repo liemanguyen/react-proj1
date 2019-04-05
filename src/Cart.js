@@ -36,10 +36,21 @@ class Cart extends React.Component {
     }
   }
 
-  handleRemoveFromCart(productName) {
+  handleRemoveFromCart(productName, price) {
+    let newItems = [...this.state.cartItems];
+    for (let i = 0; i < newItems.length; i++) {
+      if (newItems[i].productName === productName) {
+        if (newItems[i].count === 1) {
+          newItems = newItems.filter(item => item.productName !== productName)
+        } else {
+          newItems[i].count--;
+        }
+        break;
+      }
+    }
     this.setState({
-      cartItems: this.state.cartItems.filter(item => item.productName !== productName)
-    })
+        cartItems: newItems
+    });
   }
 
   render() {
